@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
-import WatchScreenUI from './WatchScreenUI';
-import Images from '../../assets/Images';
-import constants from '../../assets/Constants/constants';
+import React, { useEffect, useState } from "react";
+import WatchScreenUI from "./WatchScreenUI";
+import Images from "../../assets/Images";
+import constants from "../../assets/Constants/constants";
+import { fetchMovieList } from "../../service/fetchMovieAPI";
 
 const WatchScreenComponent = () => {
   const [movieList, setMovieList] = useState([]);
@@ -11,47 +11,40 @@ const WatchScreenComponent = () => {
   const [loader, setLoader] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [showResult, setShowResult] = useState(false);
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     getMovieList();
   }, [page]);
 
   const getMovieList = async () => {
-    const queryParams = {
-      api_key: '73fac9114e69bba5dd12b80ad873c2ef',
-      page: page,
-    };
     setLoader(true);
     try {
-      const response = await axios.get(
-        'https://api.themoviedb.org/3/movie/upcoming',
-        {params: queryParams},
-      );
-      setMovieList(prevMovies => [...prevMovies, ...response.data.results]);
+      const data = await fetchMovieList(page);
+      setMovieList((prevMovies) => [...prevMovies, ...data.results]);
       setLoader(false);
-      setTotalMovies(response.data.total_results);
+      setTotalMovies(data.total_results);
     } catch (error) {
       setLoader(false);
       console.error(error);
     }
   };
 
-  const handleSubmit = val => {
+  const handleSubmit = (val) => {
     setShowResult(val);
   };
 
   const movieGenres = [
-    {image: Images.iconCommedy, title: constants.COMMEDIES, id: 1},
-    {image: Images.iconCrime, title: constants.CRIME, id: 2},
-    {image: Images.iconFamily, title: constants.FAMILY, id: 3},
-    {image: Images.iconDocumentry, title: constants.DOCUMENTRIES, id: 4},
-    {image: Images.iconDramas, title: constants.DRAMAS, id: 5},
-    {image: Images.iconFantasy, title: constants.FANTASY, id: 6},
-    {image: Images.iconHoliday, title: constants.HOLIDAYS, id: 7},
-    {image: Images.iconHorror, title: constants.HORROR, id: 8},
-    {image: Images.iconScifi, title: constants.SCIFI, id: 9},
-    {image: Images.iconThriller, title: constants.THRILLER, id: 10},
+    { image: Images.iconCommedy, title: constants.COMMEDIES, id: 1 },
+    { image: Images.iconCrime, title: constants.CRIME, id: 2 },
+    { image: Images.iconFamily, title: constants.FAMILY, id: 3 },
+    { image: Images.iconDocumentry, title: constants.DOCUMENTRIES, id: 4 },
+    { image: Images.iconDramas, title: constants.DRAMAS, id: 5 },
+    { image: Images.iconFantasy, title: constants.FANTASY, id: 6 },
+    { image: Images.iconHoliday, title: constants.HOLIDAYS, id: 7 },
+    { image: Images.iconHorror, title: constants.HORROR, id: 8 },
+    { image: Images.iconScifi, title: constants.SCIFI, id: 9 },
+    { image: Images.iconThriller, title: constants.THRILLER, id: 10 },
   ];
 
   const searchResult = [
@@ -75,17 +68,17 @@ const WatchScreenComponent = () => {
     },
   ];
 
-  const onSearch = val => {
+  const onSearch = (val) => {
     setSearchText(val);
   };
 
   const nextPage = () => {
-    setPage(prevPage => prevPage + 1);
+    setPage((prevPage) => prevPage + 1);
   };
 
-  const handleSearchBar = val => {
+  const handleSearchBar = (val) => {
     setPage(1);
-    setSearchText('');
+    setSearchText("");
     setShowResult(false);
     setShowSearchBar(val);
   };

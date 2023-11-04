@@ -1,0 +1,25 @@
+export const constants = {
+  NO_DATA_FOUND: 'No Data Found!',
+  Watch: 'Watch',
+  COMMEDIES: 'Commedies',
+  CRIME: 'Crime',
+  FAMILY: 'Family',
+  DOCUMENTRIES: 'Documentries',
+  DRAMAS: 'Dramas',
+  FANTASY: 'Fantasy',
+  HOLIDAYS: 'Holidays',
+  HORROR: 'Horror',
+  SCIFI: 'Sci-Fi',
+  THRILLER: 'Thriller',
+  TIMLESS: 'Timless',
+  IN_TIME: 'In Time',
+  A_TIME_TO_KILL: 'A Time To Kill',
+  TV_SHOW_AND_MORE: 'TV shows, movies and more',
+  RESULT_FOUND: '3 Results Found',
+  TOP_RESULTS: 'Top Results',
+  DASHBOARD: 'Dashboard',
+  MEDIA_LIB: 'Media Library',
+  MORE: 'More',
+};
+
+export default constants;
